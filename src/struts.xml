@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.devMode" value="false" /> 
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	
+	<package name="ad" namespace="/" extends="struts-default">
+		<!-- Ad Action -->
+		<action name="fx-inside" class="com.demo.action.AdAction" method="fxInside">
+			<result name="success">/fx-inside.jsp</result>
+		</action>
+		<action name="stock-inside" class="com.demo.action.AdAction" method="stockInside">
+			<result name="success">/stock-inside.jsp</result>
+		</action>
+		<action name="news-inside" class="com.demo.action.AdAction" method="newsInside">
+			<result name="success">/news-inside.jsp</result>
+		</action>
+		<!-- Ad Action End -->
+	</package>
+</struts>

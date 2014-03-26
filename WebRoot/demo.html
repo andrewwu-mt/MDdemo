@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-tw">
+<head>
+	<meta charset="UTF-8">
+	<title>Market Data ONLINE</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/demo-style.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/minwt.auto_full_height.mini.js"></script>
+	<script>
+		$(function(){
+			// 預設顯示第一個 Tab
+			var _showTab = 0;
+			$('.tab-wrapper').each(function(){
+				var $tab = $(this);
+		 
+				var $defaultLi = $('ul.tabs li', $tab).eq(_showTab).addClass('active');
+				$($defaultLi.find('a').attr('href')).siblings().hide();
+		 
+				$('ul.tabs li', $tab).click(function() {
+					var $this = $(this),
+						_clickTab = $this.find('a').attr('href');
+					$this.addClass('active').siblings('.active').removeClass('active');
+					$(_clickTab).stop(false, true).fadeIn().siblings().hide();
+		 
+					return false;
+				}).find('a').focus(function(){
+					this.blur();
+				});
+			});
+
+			$('#fx-list').load(function(){
+				$('#jpy').show();
+				$('#eur').hide();
+				$('#aud').hide();
+					
+				var $iframe = $(this), 
+					$contents = $iframe.contents();
+
+				$contents.find('#JPY_NAME').parents('tr').mouseenter(function(){
+					//setUrl('JPY=');
+					$('#jpy').show();
+					$('#eur').hide();
+					$('#aud').hide();
+				});
+
+				$contents.find('#EUR_NAME').parents('tr').mouseenter(function(){
+					//setUrl('EUR=');
+					$('#jpy').hide();
+					$('#eur').show();
+					$('#aud').hide();
+				});
+
+				$contents.find('#AUD_NAME').parents('tr').mouseenter(function(){
+					//setUrl('AUD=');
+					$('#jpy').hide();
+					$('#eur').hide();
+					$('#aud').show();
+				});
+
+				function setUrl(dataName){
+					$('#fx-chart').attr('src', 'http://localhost:8080/MDOL/quote?name='+dataName+'&type=fx&dataType=chart&chartType=1&dateStart=2014-01-01&dateEnd=2014-02-01&chartHeight=156&chartWidth=320');
+				}
+
+			});
+		});
+
+	</script>
+</head>
+<body>
+<div id="wrapper">
+	<div id="side-menu" _height="auto">
+		<div id="logo">
+			Market Data<span> ONLINE</span>
+		</div>
+		<ul id="menu">
+			<li><a href="#" class="now-page">Markets Home</a></li>
+			<li><a href="stock-list.html">Stocks</a></li>
+			<li><a href="map-inside.html">Currencies</a></li>
+			<li><a href="#">My Portfolio</a></li>
+		</ul>
+	</div>
+	<div id="content-wrapper" _height="auto">
+		<div id="main-content">
+			<div id="banner"><img src="images/demo-banner.jpg"></div>
+
+			<iframe id="news-list" scrolling="no" src="http://localhost:8080/MDOL/quote?dataType=news&type=html&number=1&unit=s&size=10&template=news_template2.html"></iframe>
+
+			<a href="#" class="more-btn">more ></a>
+		</div>
+		<div id="side-content">
+			<div class="data-content">
+				<h2 class="marketdata">Market Indices</h2>
+					<div class="tab-wrapper clear-fix">
+					<ul class="tabs">
+						<li><a href="#tab1">U.S.</a></li>
+						<li><a href="#tab2">EUROPE</a></li>
+						<li><a href="#tab3">ASIA</a></li>
+					</ul>
+			 
+					<div class="tab_container">
+						<div id="tab1" class="tab_content">
+
+							<iframe src="http://localhost:8080/MDOL/quote?name=.DJI,.IXIC,.NYA,.TRXFLDUSP&type=html&dataType=quote&number=1&unit=s&template=indices_template2.html"></iframe>
+						</div>
+						<div id="tab2" class="tab_content">
+							<iframe src="http://localhost:8080/MDOL/quote?name=.FTSE,.GDAXI,.FCHI&type=html&dataType=quote&number=1&unit=s&template=indices_template2.html"></iframe>
+						</div>
+						<div id="tab3" class="tab_content">
+							<iframe src="http://localhost:8080/MDOL/quote?name=.N225,.HSI,.AORD,.TRXFLDUSP&type=html&dataType=quote&number=1&unit=s&template=indices_template2.html"></iframe>
+
+						</div>
+					</div>
+				</div>
+				<!-- <a href="#">more ></a> -->
+			</div>
+			<div class="data-content">
+				<h2 class="stocks">Stocks</h2>
+					<div class="tab-wrapper clear-fix">
+					<ul class="tabs">
+						<li><a href="#tab5">TW</a></li>
+						<li><a href="#tab6">HK</a></li>
+						<li><a href="#tab7">CHINA</a></li>
+					</ul>
+			 
+					<div class="tab_container">
+						<div id="tab5" class="tab_content">
+
+							<iframe src="http://localhost:8080/MDOL/quote?name=1301.TW,2308.TW,2881.TW,2330.TW&type=html&dataType=quote&number=1&unit=s&template=stock_template2.html"></iframe>
+						</div>
+						<div id="tab6" class="tab_content">
+							<iframe src="http://localhost:8080/MDOL/quote?name=0006.HK,0038.HK,0159.HK,0836.HK,0838.HK,0837.HK&type=html&dataType=quote&number=1&unit=s&template=stock_template2.html"></iframe>
+						</div>
+						<div id="tab7" class="tab_content">
+							<iframe src="http://localhost:8080/MDOL/quote?name=600091.SS,600680.SS&type=html&dataType=quote&number=1&unit=s&template=stock_template2.html"></iframe>
+
+						</div>
+					</div>
+				</div>
+				<a href="stock-list.html">more ></a>
+			</div>
+			<div class="data-content">
+				<h2 class="currencies">Currencies</h2>
+				<!-- <iframe id="fx-chart" name="fx-chart" scrolling="no" src="http://localhost:8080/MDOL/quote?name=JPY=&type=fx&dataType=chart&chartType=1&dateStart=2014-01-01&dateEnd=today&chartHeight=156&chartWidth=320"></iframe> -->
+				<iframe id="jpy" name="fx-chart" scrolling="no" src="http://localhost:8080/MDOL/quote?name=JPY=&type=fx&dataType=chart&chartType=1&dateStart=2014-01-01&dateEnd=today&chartHeight=156&chartWidth=320"></iframe>
+				<iframe id="eur" name="fx-chart" scrolling="no" src="http://localhost:8080/MDOL/quote?name=EUR=&type=fx&dataType=chart&chartType=1&dateStart=2014-01-01&dateEnd=today&chartHeight=156&chartWidth=320"></iframe>
+				<iframe id="aud" name="fx-chart" scrolling="no" src="http://localhost:8080/MDOL/quote?name=AUD=&type=fx&dataType=chart&chartType=1&dateStart=2014-01-01&dateEnd=today&chartHeight=156&chartWidth=320"></iframe>
+				<div class="data-wrapper">
+
+					<iframe id="fx-list" src="http://localhost:8080/MDOL/quote?name=JPY=,EUR=,AUD=&type=html&dataType=quote&number=1&unit=s&template=fx_template2.html"></iframe>
+
+				</div>
+				<a href="fx-list.html">more ></a>
+			</div>
+		</div>
+	</div>
+<!-- 	<div id="footer" _height="none">Copyright©2014 Metrics All Rights Reserved</div> -->
+</div>
+</body>
+</html>

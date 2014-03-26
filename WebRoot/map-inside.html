@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-tw">
+<head>
+	<meta charset="UTF-8">
+	<title>Data Feed System Demo</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/demo-style.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/minwt.auto_full_height.mini.js"></script>
+	<script>
+		$(function(){
+
+			$('#inside-map').load(function(){
+
+				var $iframe = $(this), 
+					$contents = $iframe.contents();
+
+				$contents.find('#JPY-wrapper').mouseenter(function(){
+					setUrl('JPY=');
+				});
+
+				$contents.find('#TWD-wrapper').mouseenter(function(){
+					setUrl('TWD=');
+				});
+
+				$contents.find('#EUR-wrapper').mouseenter(function(){
+					setUrl('EUR=');
+				});
+
+				$contents.find('#AUD-wrapper').mouseenter(function(){
+					setUrl('AUD=');
+				});
+
+				$contents.find('#CAD-wrapper').mouseenter(function(){
+					setUrl('CAD=');
+				});
+
+				$contents.find('#SGD-wrapper').mouseenter(function(){
+					setUrl('SGD=');
+				});
+
+				$contents.find('#ZAR-wrapper').mouseenter(function(){
+					setUrl('ZAR=');
+				});
+
+				$contents.find('#CNY-wrapper').mouseenter(function(){
+					setUrl('CNY=');
+				});
+
+				$contents.find('#GBP-wrapper').mouseenter(function(){
+					setUrl('GBP=');
+				});
+
+				$contents.find('#CHF-wrapper').mouseenter(function(){
+					setUrl('CHF=');
+				});
+
+				function setUrl(dataName){
+					$('#inside-chart-s').attr('src', 'http://localhost:8080/MDOL/quote?name='+dataName+'&type=fx&dataType=chart&chartType=1&dateStart=2014-01-01&dateEnd=2014-02-01&chartHeight=200');
+				};
+
+			});
+		});
+
+	</script>
+</head>
+<body>
+<div id="wrapper">
+	<div id="side-menu" _height="auto">
+		<div id="logo">
+			Market Data<span> DEMO</span>
+		</div>
+		<ul id="menu">
+			<li><a href="demo.html">Markets Home</a></li>
+			<li><a href="stock-list.html">Stocks</a></li>
+			<li><a href="map-inside.html" class="now-page">Currencies</a></li>
+			<li><a href="#">My Portfolio</a></li>
+		</ul>
+	</div>
+	<div id="content-wrapper" _height="auto">
+		<div id="page-content">
+			<h1>Currencies</h1>
+			<iframe scrolling="no" id="inside-map" class="inside-map" src="http://localhost:8080/MDOL/quote?type=html&dataType=map&number=1&unit=s&template=fx_map_template2.html"></iframe>
+			<iframe scrolling="no" id="inside-chart-s" class="inside-chart-s" src="http://localhost:8080/MDOL/quote?name=JPY=&type=fx&dataType=chart&chartType=1&dateStart=2014-01-01&dateEnd=2014-02-01&chartHeight=200"></iframe>
+
+		</div>
+	</div>
+<!-- 	<div id="footer" _height="none">Copyright©2014 Metrics All Rights Reserved</div> -->
+</div>
+</body>
+</html>
